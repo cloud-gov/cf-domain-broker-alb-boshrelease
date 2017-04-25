@@ -1,0 +1,3 @@
+[submodule "src/github.com/18F/cf-cdn-service-broker"]
+	path = src/github.com/18F/cf-cdn-service-broker
+	url = https://github.com/18F/cf-cdn-service-broker.git
