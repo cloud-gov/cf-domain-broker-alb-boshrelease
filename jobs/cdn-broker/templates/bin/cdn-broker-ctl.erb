@@ -1,0 +1,41 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+
+# Setup common env vars and folders
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'cdn-broker'
+export CDN_BROKER_PID_FILE=${CDN_BROKER_PID_DIR}/cdn-broker.pid
+
+case $1 in
+
+  start)
+    pid_guard ${CDN_BROKER_PID_FILE} ${JOB_NAME}
+    echo $$ > ${CDN_BROKER_PID_FILE}
+
+    # FIXME: The broker hard codes the location of the catalog.json file[1],
+    # so we have to copy it to the `pwd` of the running process until a better
+    # solution can be found. Ideally, we should pass the catalog details via
+    # the manifest and extend the broker so it can be configured to look for
+    # the catalog in a different location.
+    #
+    # [1] https://github.com/18F/cf-cdn-service-broker/blob/672c141b84d8ee1f05a7ab125534cd797d32db24/broker/broker.go#L50
+    cp /var/vcap/packages/cdn-broker/src/github.com/18F/cf-cdn-service-broker/catalog.json /etc/sv/monit
+
+    # Start CDN Broker service
+    exec /var/vcap/packages/cdn-broker/bin/cdn-broker \
+      > >(tee -a ${CDN_BROKER_LOG_DIR}/${OUTPUT_LABEL}.stdout.log | logger -t vcap.${OUTPUT_LABEL}.stdout) \
+      2> >(tee -a ${CDN_BROKER_LOG_DIR}/${OUTPUT_LABEL}.stderr.log | logger -t vcap.${OUTPUT_LABEL}.stderr)
+    ;;
+
+  stop)
+    # Stop CDN Broker service
+    kill_and_wait ${CDN_BROKER_PID_FILE}
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+
+esac
+exit 0
