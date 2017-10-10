@@ -1,25 +1,25 @@
 #!/usr/bin/env bash
 
 #
-# CDN Broker properties
+# CDN Cron properties
 #
 
-# Directory to store the CDN Broker configuration files
-export CDN_BROKER_CONF_DIR=${JOB_DIR}/config
+# Directory to store the CDN Cron configuration files
+export CDN_CRON_CONF_DIR=${JOB_DIR}/config
 
-# Directory to store the CDN Broker log files
-export CDN_BROKER_LOG_DIR=${LOG_DIR}
+# Directory to store the CDN Cron log files
+export CDN_CRON_LOG_DIR=${LOG_DIR}
 
-# Directory to store the CDN Broker process IDs
-export CDN_BROKER_PID_DIR=${RUN_DIR}
+# Directory to store the CDN Cron process IDs
+export CDN_CRON_PID_DIR=${RUN_DIR}
 
-# Directory to store the CDN Broker data files
-export CDN_BROKER_STORE_DIR=${STORE_DIR}
+# Directory to store the CDN Cron data files
+export CDN_CRON_STORE_DIR=${STORE_DIR}
 
-# Directory to store the CDN Broker temp files
-export CDN_BROKER_TMP_DIR=${TMP_DIR}
+# Directory to store the CDN Cron temp files
+export CDN_CRON_TMP_DIR=${TMP_DIR}
 
-# These properties are duplicated in the cdn-cron job
+# These properties are duplicated in the cdn-broker job
 export CDN_PORT="<%= p('cdn-broker.port') %>"
 export CDN_BROKER_USERNAME="<%= p('cdn-broker.broker_username') %>"
 export CDN_BROKER_PASSWORD="<%= p('cdn-broker.broker_password') %>"
