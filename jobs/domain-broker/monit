@@ -1,0 +1,14 @@
+check process domain-broker
+  with pidfile /var/vcap/sys/run/domain-broker/domain-broker.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger broker-ctl '/var/vcap/jobs/domain-broker/bin/broker-ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger broker-ctl '/var/vcap/jobs/domain-broker/bin/broker-ctl stop'"
+  group vcap
+<% if spec.bootstrap %>
+check process domain-cron
+  with pidfile /var/vcap/sys/run/domain-broker/domain-cron.pid
+  start program "/var/vcap/packages/bosh-helpers/monit_debugger cron-ctl '/var/vcap/jobs/domain-broker/bin/cron-ctl start'"
+  stop program "/var/vcap/packages/bosh-helpers/monit_debugger cron-ctl '/var/vcap/jobs/domain-broker/bin/cron-ctl stop'"
+  group vcap
+<% else %>
+# cron disabled on VM index > 0.
+<% end %>

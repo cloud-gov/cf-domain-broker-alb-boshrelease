@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e # exit immediately if a simple command exits with a non-zero status
+
+# Setup common env vars and folders
+source /var/vcap/packages/bosh-helpers/ctl_setup.sh 'domain-broker'
+export DOMAIN_CRON_PID_FILE=${DOMAIN_BROKER_PID_DIR}/domain-cron.pid
+
+case $1 in
+
+  start)
+    pid_guard ${DOMAIN_CRON_PID_FILE} ${JOB_NAME}
+    echo $$ > ${DOMAIN_CRON_PID_FILE}
+
+    # Start CDN Cron service
+    exec /var/vcap/packages/domain-broker/bin/cron \
+      > >(tee -a ${DOMAIN_CRON_LOG_DIR}/${OUTPUT_LABEL}.stdout.log | logger -t vcap.${OUTPUT_LABEL}.stdout) \
+      2> >(tee -a ${DOMAIN_CRON_LOG_DIR}/${OUTPUT_LABEL}.stderr.log | logger -t vcap.${OUTPUT_LABEL}.stderr)
+    ;;
+
+  stop)
+    # Stop CDN Cron service
+    kill_and_wait ${DOMAIN_CRON_PID_FILE}
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+    ;;
+
+esac
+exit 0

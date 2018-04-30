@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+#
+# CDN Broker properties
+#
+
+# Directory to store the CDN Broker configuration files
+export DOMAIN_BROKER_CONF_DIR=${JOB_DIR}/config
+
+# Directory to store the CDN Broker log files
+export DOMAIN_BROKER_LOG_DIR=${LOG_DIR}
+export DOMAIN_CRON_LOG_DIR=${LOG_DIR}
+
+# Directory to store the CDN Broker process IDs
+export DOMAIN_BROKER_PID_DIR=${RUN_DIR}
+
+# Directory to store the CDN Broker data files
+export DOMAIN_BROKER_STORE_DIR=${STORE_DIR}
+
+# Directory to store the CDN Broker temp files
+export DOMAIN_BROKER_TMP_DIR=${TMP_DIR}
+
+export PORT="<%= p('broker.port') %>"
+export BROKER_USERNAME="<%= p('broker.broker_username') %>"
+export BROKER_PASSWORD="<%= p('broker.broker_password') %>"
+export DATABASE_URL="<%= p('broker.database_url') %>"
+export EMAIL="<%= p('broker.email') %>"
+export ACME_URL="<%= p('broker.acme_url') %>"
+export BUCKET="<%= p('broker.bucket') %>"
+export ALB_PREFIX="<%= p('broker.alb_prefix') %>"
+export IAM_PATH_PREFIX="<%= p('broker.iam_path_prefix') %>"
+<% if_p('broker.aws_access_key_id') do |key| %>export AWS_ACCESS_KEY_ID="<%= key %>"<% end %>
+<% if_p('broker.aws_secret_access_key') do |key| %>export AWS_SECRET_ACCESS_KEY="<%= key %>"<% end %>
+export AWS_DEFAULT_REGION="<%= p('broker.aws_region') %>"
+export SERVER_SIDE_ENCRYPTION="<%= p('broker.server_side_encryption') %>"
+export API_ADDRESS="<%= p('broker.api_address') %>"
+export CLIENT_ID="<%= p('broker.client_id') %>"
+export CLIENT_SECRET="<%= p('broker.client_secret') %>"
+export SCHEDULE="<%= p('broker.schedule') %>"
