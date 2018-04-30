@@ -1,9 +1,0 @@
-<% if spec.bootstrap %>
-check process cdn-cron
-  with pidfile /var/vcap/sys/run/cdn-cron/cdn-cron.pid
-  start program "/var/vcap/packages/bosh-helpers/monit_debugger cdn-cron-ctl '/var/vcap/jobs/cdn-cron/bin/cdn-cron-ctl start'"
-  stop program "/var/vcap/packages/bosh-helpers/monit_debugger cdn-cron-ctl '/var/vcap/jobs/cdn-cron/bin/cdn-cron-ctl stop'"
-  group vcap
-<% else %>
-# Job disabled on VM index > 0.
-<% end %>
