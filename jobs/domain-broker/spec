@@ -49,3 +49,5 @@ properties:
   broker.schedule:
     description: "Cron schedlue for checking if cert renewal is required"
     default: "0 0 * * * *"
+  broker.user_id_pool:
+    description: "The pool of existing user ids (comma separated) to select from when creating new certificates"
