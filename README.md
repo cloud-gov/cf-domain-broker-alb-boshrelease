@@ -1,6 +1,6 @@
 # PaaS CDN Broker Bosh Release
 
-This is a Bosh release for deploying [18F's CDN broker](https://github.com/18F/cf-cdn-service-broker) on a Bosh-managed VM. We maintain [a fork of the broker](https://github.com/alphagov/paas-cdn-broker) and submodule it into this repository. It is important to note we have kept the submodule path of the upstream repository in order to not have to re-write Golang import paths.
+This is a Bosh release for deploying [cloud.gov's CDN broker](https://github.com/cloud-gov/cf-cdn-service-broker) on a Bosh-managed VM. We maintain [a fork of the broker](https://github.com/alphagov/paas-cdn-broker) and submodule it into this repository. It is important to note we have kept the submodule path of the upstream repository in order to not have to re-write Golang import paths.
 
 # Deploy with BOSH
 
