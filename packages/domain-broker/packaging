@@ -3,7 +3,7 @@
 set -e # exit immediately if a simple command exits with a non-zero status
 set -u # report the usage of uninitialized variables
 
-source /var/vcap/packages/golang-1-linux/bosh/compile.env
+source /var/vcap/packages/golang-1.22-linux/bosh/compile.env
 
 # Build CDN Service Broker package
 echo "Building Broker..."
@@ -16,9 +16,8 @@ apt update && apt install -y git
 export GOBIN=${GOPATH}/bin
 export PATH=${GOBIN}:${PATH}
 mkdir -p ${GOBIN}
-curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+
 pushd ${BOSH_INSTALL_TARGET}/src/${PACKAGE_NAME}
-  dep ensure
   go install ${PACKAGE_NAME}/cmd/broker
   go install ${PACKAGE_NAME}/cmd/cron
 popd

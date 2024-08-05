@@ -1,6 +1,6 @@
 ---
 name: domain-broker
 dependencies:
-  - golang-1-linux
+  - golang-1.22-linux
 files:
   - github.com/18F/cf-domain-broker-alb/**/*
